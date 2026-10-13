@@ -1,0 +1,16 @@
+{
+  "name": "iwardrobe",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.21.0",
+  "scripts": {
+    "dev": "pnpm --filter @iwardrobe/web dev",
+    "build": "pnpm --filter @iwardrobe/web build",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "openapi-typescript": "^7.13.0",
+    "prettier": "^3.9.10"
+  }
+}

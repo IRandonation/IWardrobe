@@ -1,0 +1,6 @@
+[
+  {"key":"oat-knit","file":"oat-knit.png","fields":{"name":"燕麦色圆领针织衫","category":"top","color":"燕麦色","season":"autumn","material":"演示设定：棉质针织","care":"示例字段，请以真实洗标为准","notes":"AI 生成演示图片；属性由测试夹具设定，未经模型识别。"}},
+  {"key":"navy-shirt","file":"navy-shirt.png","fields":{"name":"藏蓝色工装衬衫","category":"outerwear","color":"藏蓝色","season":"spring","material":"演示设定：棉","care":"示例字段，请以真实洗标为准","notes":"AI 生成演示图片；属性由测试夹具设定，未经模型识别。"}},
+  {"key":"olive-trousers","file":"olive-trousers.png","fields":{"name":"橄榄绿直筒长裤","category":"bottom","color":"橄榄绿","season":"all","material":"演示设定：棉","care":"示例字段，请以真实洗标为准","notes":"AI 生成演示图片；属性由测试夹具设定，未经模型识别。"}},
+  {"key":"white-sneakers","file":"white-sneakers.png","fields":{"name":"奶白色帆布鞋","category":"shoes","color":"奶白色","season":"all","material":"演示设定：帆布","care":"示例字段，请以真实洗标为准","notes":"AI 生成演示图片；属性由测试夹具设定，未经模型识别。"}}
+]
