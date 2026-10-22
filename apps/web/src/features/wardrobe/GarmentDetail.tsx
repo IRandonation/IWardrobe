@@ -18,6 +18,7 @@ import {
 } from "../../lib/api";
 import { ErrorBox } from "../../components/ui";
 import { CutoutPanel } from "./CutoutPanel";
+import { GarmentTags } from "./GarmentTags";
 
 export function GarmentDetail({
   item,
@@ -32,6 +33,7 @@ export function GarmentDetail({
 }) {
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
+  const [category, setCategory] = useState(item.category);
   async function change(changes: Partial<Garment>, message: string) {
     setPending(true);
     setError("");
@@ -148,7 +150,13 @@ export function GarmentDetail({
           </label>
           <label>
             分类
-            <select name="category" defaultValue={item.category}>
+            <select
+              name="category"
+              value={category}
+              onChange={(e) =>
+                setCategory(e.target.value as Garment["category"])
+              }
+            >
               {Object.entries(categories).map(([k, v]) => (
                 <option key={k} value={k}>
                   {v}
@@ -200,6 +208,7 @@ export function GarmentDetail({
             />
           </label>
         </div>
+        <GarmentTags item={item} category={category} />
         {error && <ErrorBox text={error} />}
         <div className="form-footer">
           <button type="button" className="button" onClick={onClose}>

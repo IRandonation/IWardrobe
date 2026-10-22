@@ -5,6 +5,399 @@
     "version": "0.1.0"
   },
   "paths": {
+    "/api/recommendations/preferences": {
+      "get": {
+        "tags": [
+          "recommendations"
+        ],
+        "summary": "Get Preferences",
+        "operationId": "get_preferences_api_recommendations_preferences_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecommendationPreferences"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "recommendations"
+        ],
+        "summary": "Put Preferences",
+        "operationId": "put_preferences_api_recommendations_preferences_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecommendationPreferences"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecommendationPreferences"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/recommendations": {
+      "post": {
+        "tags": [
+          "recommendations"
+        ],
+        "summary": "Recommend",
+        "operationId": "recommend_api_recommendations_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecommendationInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecommendationRunOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/recommendations/latest": {
+      "get": {
+        "tags": [
+          "recommendations"
+        ],
+        "summary": "Latest",
+        "operationId": "latest_api_recommendations_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/RecommendationRunOut"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Latest Api Recommendations Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/recommendations/{run_id}": {
+      "get": {
+        "tags": [
+          "recommendations"
+        ],
+        "summary": "Get Run",
+        "operationId": "get_run_api_recommendations__run_id__get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecommendationRunOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/recommendations/{run_id}/outfits/{outfit_id}/swap": {
+      "post": {
+        "tags": [
+          "recommendations"
+        ],
+        "summary": "Swap",
+        "operationId": "swap_api_recommendations__run_id__outfits__outfit_id__swap_post",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          },
+          {
+            "name": "outfit_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Outfit Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SwapInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecommendationRunOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/recommendations/{run_id}/outfits/{outfit_id}/wear": {
+      "post": {
+        "tags": [
+          "recommendations"
+        ],
+        "summary": "Wear",
+        "operationId": "wear_api_recommendations__run_id__outfits__outfit_id__wear_post",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          },
+          {
+            "name": "outfit_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Outfit Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecommendationRunOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/recommendations/{run_id}/outfits/{outfit_id}/feedback": {
+      "put": {
+        "tags": [
+          "recommendations"
+        ],
+        "summary": "Feedback",
+        "operationId": "feedback_api_recommendations__run_id__outfits__outfit_id__feedback_put",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          },
+          {
+            "name": "outfit_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Outfit Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OutfitFeedback"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecommendationRunOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/weather/locations": {
+      "get": {
+        "tags": [
+          "weather"
+        ],
+        "summary": "Locations",
+        "operationId": "locations_api_weather_locations_get",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 80,
+              "title": "Q"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Location"
+                  },
+                  "title": "Response Locations Api Weather Locations Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/health": {
       "get": {
         "summary": "Health",
@@ -721,6 +1114,80 @@
             "title": "Season",
             "default": "all"
           },
+          "warmth": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "light",
+              "medium",
+              "warm"
+            ],
+            "title": "Warmth",
+            "default": "unknown"
+          },
+          "layer": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "base",
+              "mid",
+              "outer"
+            ],
+            "title": "Layer",
+            "default": "unknown"
+          },
+          "sleeve_length": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "sleeveless",
+              "short",
+              "long"
+            ],
+            "title": "Sleeve Length",
+            "default": "unknown"
+          },
+          "bottom_length": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "short",
+              "long"
+            ],
+            "title": "Bottom Length",
+            "default": "unknown"
+          },
+          "style": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "casual",
+              "smart",
+              "sport"
+            ],
+            "title": "Style",
+            "default": "unknown"
+          },
+          "rain_protection": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "yes",
+              "no"
+            ],
+            "title": "Rain Protection",
+            "default": "unknown"
+          },
+          "wind_protection": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "yes",
+              "no"
+            ],
+            "title": "Wind Protection",
+            "default": "unknown"
+          },
           "material": {
             "type": "string",
             "maxLength": 120,
@@ -784,6 +1251,80 @@
             ],
             "title": "Season",
             "default": "all"
+          },
+          "warmth": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "light",
+              "medium",
+              "warm"
+            ],
+            "title": "Warmth",
+            "default": "unknown"
+          },
+          "layer": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "base",
+              "mid",
+              "outer"
+            ],
+            "title": "Layer",
+            "default": "unknown"
+          },
+          "sleeve_length": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "sleeveless",
+              "short",
+              "long"
+            ],
+            "title": "Sleeve Length",
+            "default": "unknown"
+          },
+          "bottom_length": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "short",
+              "long"
+            ],
+            "title": "Bottom Length",
+            "default": "unknown"
+          },
+          "style": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "casual",
+              "smart",
+              "sport"
+            ],
+            "title": "Style",
+            "default": "unknown"
+          },
+          "rain_protection": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "yes",
+              "no"
+            ],
+            "title": "Rain Protection",
+            "default": "unknown"
+          },
+          "wind_protection": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "yes",
+              "no"
+            ],
+            "title": "Wind Protection",
+            "default": "unknown"
           },
           "material": {
             "type": "string",
@@ -958,6 +1499,80 @@
             "title": "Season",
             "default": "all"
           },
+          "warmth": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "light",
+              "medium",
+              "warm"
+            ],
+            "title": "Warmth",
+            "default": "unknown"
+          },
+          "layer": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "base",
+              "mid",
+              "outer"
+            ],
+            "title": "Layer",
+            "default": "unknown"
+          },
+          "sleeve_length": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "sleeveless",
+              "short",
+              "long"
+            ],
+            "title": "Sleeve Length",
+            "default": "unknown"
+          },
+          "bottom_length": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "short",
+              "long"
+            ],
+            "title": "Bottom Length",
+            "default": "unknown"
+          },
+          "style": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "casual",
+              "smart",
+              "sport"
+            ],
+            "title": "Style",
+            "default": "unknown"
+          },
+          "rain_protection": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "yes",
+              "no"
+            ],
+            "title": "Rain Protection",
+            "default": "unknown"
+          },
+          "wind_protection": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "yes",
+              "no"
+            ],
+            "title": "Wind Protection",
+            "default": "unknown"
+          },
           "material": {
             "type": "string",
             "maxLength": 120,
@@ -1110,6 +1725,42 @@
         ],
         "title": "JobOut"
       },
+      "Location": {
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Label"
+          },
+          "latitude": {
+            "type": "number",
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Latitude"
+          },
+          "longitude": {
+            "type": "number",
+            "maximum": 180.0,
+            "minimum": -180.0,
+            "title": "Longitude"
+          },
+          "timezone": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "Timezone"
+          }
+        },
+        "type": "object",
+        "required": [
+          "label",
+          "latitude",
+          "longitude",
+          "timezone"
+        ],
+        "title": "Location"
+      },
       "LoginInput": {
         "properties": {
           "username": {
@@ -1132,6 +1783,327 @@
         ],
         "title": "LoginInput"
       },
+      "ManualWeather": {
+        "properties": {
+          "feels_min": {
+            "type": "number",
+            "maximum": 60.0,
+            "minimum": -60.0,
+            "title": "Feels Min"
+          },
+          "feels_max": {
+            "type": "number",
+            "maximum": 60.0,
+            "minimum": -60.0,
+            "title": "Feels Max"
+          },
+          "rain_probability": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Rain Probability",
+            "default": 0
+          },
+          "wind_kph": {
+            "type": "number",
+            "maximum": 300.0,
+            "minimum": 0.0,
+            "title": "Wind Kph",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "feels_min",
+          "feels_max"
+        ],
+        "title": "ManualWeather"
+      },
+      "OutfitFeedback": {
+        "properties": {
+          "comfort": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "cold",
+                  "comfortable",
+                  "hot"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comfort"
+          },
+          "liked": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Liked"
+          }
+        },
+        "type": "object",
+        "title": "OutfitFeedback"
+      },
+      "OutfitOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/GarmentOut"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "score": {
+            "type": "number",
+            "title": "Score"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reasons"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "complete": {
+            "type": "boolean",
+            "title": "Complete"
+          },
+          "worn_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Worn At"
+          },
+          "feedback": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/OutfitFeedback"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "stale": {
+            "type": "boolean",
+            "title": "Stale"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "items",
+          "score",
+          "reasons",
+          "warnings",
+          "complete",
+          "worn_at",
+          "feedback",
+          "stale"
+        ],
+        "title": "OutfitOut"
+      },
+      "RecommendationInput": {
+        "properties": {
+          "weather": {
+            "$ref": "#/components/schemas/WeatherInput"
+          },
+          "occasion": {
+            "type": "string",
+            "enum": [
+              "casual",
+              "work",
+              "sport"
+            ],
+            "title": "Occasion",
+            "default": "casual"
+          },
+          "exposure": {
+            "type": "string",
+            "enum": [
+              "commute",
+              "outdoor",
+              "indoor"
+            ],
+            "title": "Exposure",
+            "default": "commute"
+          },
+          "thermal_preference": {
+            "type": "string",
+            "enum": [
+              "cold",
+              "neutral",
+              "warm"
+            ],
+            "title": "Thermal Preference",
+            "default": "neutral"
+          }
+        },
+        "type": "object",
+        "required": [
+          "weather"
+        ],
+        "title": "RecommendationInput"
+      },
+      "RecommendationPreferences": {
+        "properties": {
+          "location": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Location"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "start_hour": {
+            "type": "integer",
+            "maximum": 23.0,
+            "minimum": 0.0,
+            "title": "Start Hour",
+            "default": 8
+          },
+          "end_hour": {
+            "type": "integer",
+            "maximum": 24.0,
+            "minimum": 0.0,
+            "title": "End Hour",
+            "default": 20
+          },
+          "occasion": {
+            "type": "string",
+            "enum": [
+              "casual",
+              "work",
+              "sport"
+            ],
+            "title": "Occasion",
+            "default": "casual"
+          },
+          "exposure": {
+            "type": "string",
+            "enum": [
+              "commute",
+              "outdoor",
+              "indoor"
+            ],
+            "title": "Exposure",
+            "default": "commute"
+          },
+          "thermal_preference": {
+            "type": "string",
+            "enum": [
+              "cold",
+              "neutral",
+              "warm"
+            ],
+            "title": "Thermal Preference",
+            "default": "neutral"
+          }
+        },
+        "type": "object",
+        "title": "RecommendationPreferences"
+      },
+      "RecommendationRunOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "weather": {
+            "$ref": "#/components/schemas/WeatherSummary"
+          },
+          "occasion": {
+            "type": "string",
+            "enum": [
+              "casual",
+              "work",
+              "sport"
+            ],
+            "title": "Occasion"
+          },
+          "exposure": {
+            "type": "string",
+            "enum": [
+              "commute",
+              "outdoor",
+              "indoor"
+            ],
+            "title": "Exposure"
+          },
+          "thermal_preference": {
+            "type": "string",
+            "enum": [
+              "cold",
+              "neutral",
+              "warm"
+            ],
+            "title": "Thermal Preference"
+          },
+          "outfits": {
+            "items": {
+              "$ref": "#/components/schemas/OutfitOut"
+            },
+            "type": "array",
+            "title": "Outfits"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "learning_note": {
+            "type": "string",
+            "title": "Learning Note"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "created_at",
+          "weather",
+          "occasion",
+          "exposure",
+          "thermal_preference",
+          "outfits",
+          "warnings",
+          "learning_note"
+        ],
+        "title": "RecommendationRunOut"
+      },
       "SessionOut": {
         "properties": {
           "user": {
@@ -1148,6 +2120,19 @@
           "csrf_token"
         ],
         "title": "SessionOut"
+      },
+      "SwapInput": {
+        "properties": {
+          "garment_id": {
+            "type": "string",
+            "title": "Garment Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "garment_id"
+        ],
+        "title": "SwapInput"
       },
       "UserOut": {
         "properties": {
@@ -1225,6 +2210,143 @@
           "expected_version"
         ],
         "title": "VersionInput"
+      },
+      "WeatherInput": {
+        "properties": {
+          "location": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Location"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "start_hour": {
+            "type": "integer",
+            "maximum": 23.0,
+            "minimum": 0.0,
+            "title": "Start Hour",
+            "default": 8
+          },
+          "end_hour": {
+            "type": "integer",
+            "maximum": 24.0,
+            "minimum": 0.0,
+            "title": "End Hour",
+            "default": 20
+          },
+          "manual": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ManualWeather"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "date"
+        ],
+        "title": "WeatherInput"
+      },
+      "WeatherSummary": {
+        "properties": {
+          "source": {
+            "type": "string",
+            "enum": [
+              "live",
+              "cache",
+              "stale",
+              "manual"
+            ],
+            "title": "Source"
+          },
+          "location_name": {
+            "type": "string",
+            "title": "Location Name"
+          },
+          "timezone": {
+            "type": "string",
+            "title": "Timezone"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "start_hour": {
+            "type": "integer",
+            "title": "Start Hour"
+          },
+          "end_hour": {
+            "type": "integer",
+            "title": "End Hour"
+          },
+          "feels_min": {
+            "type": "number",
+            "title": "Feels Min"
+          },
+          "feels_max": {
+            "type": "number",
+            "title": "Feels Max"
+          },
+          "rain_probability": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Rain Probability"
+          },
+          "wind_kph": {
+            "type": "number",
+            "maximum": 500.0,
+            "minimum": 0.0,
+            "title": "Wind Kph"
+          },
+          "fetched_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fetched At"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "location_name",
+          "timezone",
+          "date",
+          "start_hour",
+          "end_hour",
+          "feels_min",
+          "feels_max",
+          "rain_probability",
+          "wind_kph",
+          "fetched_at"
+        ],
+        "title": "WeatherSummary"
       }
     }
   }

@@ -86,6 +86,13 @@ export function updatePayload(item: Garment, changes: Partial<Garment> = {}) {
     notes,
     status,
     favorite,
+    warmth,
+    layer,
+    sleeve_length,
+    bottom_length,
+    style,
+    rain_protection,
+    wind_protection,
   } = { ...item, ...changes };
   return {
     name,
@@ -97,6 +104,13 @@ export function updatePayload(item: Garment, changes: Partial<Garment> = {}) {
     notes,
     status,
     favorite,
+    warmth,
+    layer,
+    sleeve_length,
+    bottom_length,
+    style,
+    rain_protection,
+    wind_protection,
     expected_version: item.version,
   };
 }

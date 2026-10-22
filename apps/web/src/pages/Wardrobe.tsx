@@ -4,6 +4,7 @@ import {
   ArrowDownToLine,
   ArrowRight,
   CheckCircle2,
+  CloudSun,
   FolderArchive,
   Heart,
   Images,
@@ -36,10 +37,13 @@ import { AddGarment } from "../features/capture/AddGarment";
 import { GarmentCard } from "../features/wardrobe/GarmentCard";
 import { GarmentDetail } from "../features/wardrobe/GarmentDetail";
 import { JobsPanel } from "../features/jobs/JobsPanel";
+import { Outfits } from "../features/outfits/Outfits";
 
-type View = "wardrobe" | "favorites" | "laundry" | "archived" | "jobs";
+type View =
+  "wardrobe" | "favorites" | "laundry" | "archived" | "jobs" | "outfits";
 const views: { id: View; title: string; icon: typeof Shirt }[] = [
   { id: "wardrobe", title: "我的衣橱", icon: LayoutGrid },
+  { id: "outfits", title: "今日穿搭", icon: CloudSun },
   { id: "favorites", title: "心爱单品", icon: Heart },
   { id: "laundry", title: "洗衣篮", icon: WashingMachine },
   { id: "archived", title: "收纳箱", icon: FolderArchive },
@@ -48,7 +52,9 @@ const views: { id: View; title: string; icon: typeof Shirt }[] = [
 
 export function Wardrobe({ session }: { session: Session }) {
   const client = useQueryClient();
-  const [view, setView] = useState<View>("wardrobe");
+  const [view, setView] = useState<View>(() =>
+    window.location.hash === "#outfits" ? "outfits" : "wardrobe",
+  );
   const [category, setCategory] = useState<Category | "all">("all");
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("newest");
@@ -130,9 +136,15 @@ export function Wardrobe({ session }: { session: Session }) {
   function refresh() {
     void client.invalidateQueries({ queryKey: ["garments"] });
     void client.invalidateQueries({ queryKey: ["jobs"] });
+    void client.invalidateQueries({ queryKey: ["recommendations", "latest"] });
   }
   function navigate(next: View) {
     setView(next);
+    window.history.replaceState(
+      null,
+      "",
+      next === "outfits" ? "#outfits" : window.location.pathname,
+    );
     setCategory("all");
     setSearch("");
     setMenu(false);
@@ -268,13 +280,15 @@ export function Wardrobe({ session }: { session: Session }) {
               <p>
                 {view === "wardrobe"
                   ? "让喜欢的衣服，常常出场。"
-                  : view === "laundry"
-                    ? "洗净之后，再开启下一次出场。"
-                    : view === "favorites"
-                      ? "那些总想再穿一次的单品。"
-                      : view === "archived"
-                        ? "暂时收好，等一个合适的季节。"
-                        : "照片正在变成井井有条的衣橱。"}
+                  : view === "outfits"
+                    ? "按天气选衣，记录自己的穿着感受。"
+                    : view === "laundry"
+                      ? "洗净之后，再开启下一次出场。"
+                      : view === "favorites"
+                        ? "那些总想再穿一次的单品。"
+                        : view === "archived"
+                          ? "暂时收好，等一个合适的季节。"
+                          : "照片正在变成井井有条的衣橱。"}
               </p>
             </div>
             <button className="button primary" onClick={() => setAdd(true)}>
@@ -294,7 +308,7 @@ export function Wardrobe({ session }: { session: Session }) {
               </button>
             </div>
           )}
-          {view !== "jobs" && (
+          {view !== "jobs" && view !== "outfits" && (
             <>
               <section className="stats" aria-label="衣橱统计">
                 <button onClick={() => navigate("wardrobe")}>
@@ -480,6 +494,9 @@ export function Wardrobe({ session }: { session: Session }) {
                 )}
               </section>
             </>
+          )}
+          {view === "outfits" && (
+            <Outfits onOpen={setSelected} notify={setToast} />
           )}
           {view === "jobs" && (
             <JobsPanel

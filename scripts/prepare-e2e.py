@@ -13,6 +13,7 @@ with SessionLocal() as db:
     for filename, prefix in [
         ("e2e-accounts.json", "e2e"),
         ("cutout-e2e-accounts.json", "e2e-cutout"),
+        ("outfit-e2e-accounts.json", "e2e-outfit"),
     ]:
         accounts = {}
         for device in ["desktop", "mobile"]:
@@ -31,4 +32,4 @@ with SessionLocal() as db:
 for filename, accounts in account_groups.items():
     path = ROOT / ".local" / filename
     path.write_text(json.dumps(accounts), encoding="utf-8")
-print("Created four isolated browser-test accounts. Credentials saved locally.")
+print("Created six isolated browser-test accounts. Credentials saved locally.")

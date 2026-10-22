@@ -8,7 +8,14 @@ from .config import ROOT
 from .image_processing import MODELS
 from .media import inspect_image, write_original
 from .models import Asset, Garment, Job, User, WearRecord, now, uid
-from .schemas import CutoutModel, CutoutOut, GarmentInput, GarmentOut, GarmentUpdate
+from .schemas import (
+    GARMENT_TAG_FIELDS,
+    CutoutModel,
+    CutoutOut,
+    GarmentInput,
+    GarmentOut,
+    GarmentUpdate,
+)
 
 
 def owned_garment(db: Session, user_id: str, garment_id: str, lock: bool = False) -> Garment:
@@ -146,6 +153,8 @@ def update_garment(db: Session, user_id: str, garment_id: str, fields: GarmentUp
     garment = owned_garment(db, user_id, garment_id, lock=True)
     check_version(garment, fields.expected_version)
     for key, value in fields.model_dump(exclude={"expected_version"}).items():
+        if key in GARMENT_TAG_FIELDS and key not in fields.model_fields_set:
+            continue
         setattr(garment, key, value)
     garment.version += 1
     garment.updated_at = now()

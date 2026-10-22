@@ -22,6 +22,7 @@ from .identity import COOKIE, check_origin, csrf_for, current_user, login, token
 from .image_processing import MODELS
 from .media import file_path
 from .models import Asset, Garment, Job, LoginSession, User, now, uid
+from .recommendation_routes import router as recommendation_router
 from .schemas import (
     CutoutInput,
     CutoutModel,
@@ -46,10 +47,13 @@ from .wardrobe import (
     record_wear,
     update_garment,
 )
+from .weather_routes import router as weather_router
 
 app = FastAPI(
     title="IWardrobe", version="0.1.0", docs_url="/api/docs", openapi_url="/api/openapi.json"
 )
+app.include_router(recommendation_router)
+app.include_router(weather_router)
 Db = Annotated[Session, Depends(get_db)]
 Actor = Annotated[User, Depends(current_user)]
 

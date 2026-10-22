@@ -2,6 +2,7 @@ from datetime import datetime, timezone
 from uuid import uuid4
 
 from sqlalchemy import (
+    JSON,
     Boolean,
     DateTime,
     ForeignKey,
@@ -56,6 +57,13 @@ class Garment(Base):
     category: Mapped[str] = mapped_column(String(24), default="top")
     color: Mapped[str] = mapped_column(String(40), default="未填写")
     season: Mapped[str] = mapped_column(String(20), default="all")
+    warmth: Mapped[str] = mapped_column(String(20), default="unknown", server_default="unknown")
+    layer: Mapped[str] = mapped_column(String(20), default="unknown", server_default="unknown")
+    sleeve_length: Mapped[str] = mapped_column(String(20), default="unknown", server_default="unknown")
+    bottom_length: Mapped[str] = mapped_column(String(20), default="unknown", server_default="unknown")
+    style: Mapped[str] = mapped_column(String(20), default="unknown", server_default="unknown")
+    rain_protection: Mapped[str] = mapped_column(String(20), default="unknown", server_default="unknown")
+    wind_protection: Mapped[str] = mapped_column(String(20), default="unknown", server_default="unknown")
     material: Mapped[str] = mapped_column(String(120), default="")
     care: Mapped[str] = mapped_column(String(500), default="")
     notes: Mapped[str] = mapped_column(String(1000), default="")
@@ -123,3 +131,19 @@ class WearRecord(Base):
     user_id: Mapped[str] = mapped_column(String(36), index=True)
     garment_id: Mapped[str] = mapped_column(String(36))
     worn_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now)
+
+
+class RecommendationPreference(Base):
+    __tablename__ = "recommendation_preferences"
+    user_id: Mapped[str] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), primary_key=True
+    )
+    data: Mapped[dict] = mapped_column(JSON)
+
+
+class RecommendationRun(Base):
+    __tablename__ = "recommendation_runs"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uid)
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
+    data: Mapped[dict] = mapped_column(JSON)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now)

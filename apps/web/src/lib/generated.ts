@@ -4,6 +4,143 @@
  */
 
 export interface paths {
+    "/api/recommendations/preferences": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Preferences */
+        get: operations["get_preferences_api_recommendations_preferences_get"];
+        /** Put Preferences */
+        put: operations["put_preferences_api_recommendations_preferences_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/recommendations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Recommend */
+        post: operations["recommend_api_recommendations_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/recommendations/latest": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Latest */
+        get: operations["latest_api_recommendations_latest_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/recommendations/{run_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Run */
+        get: operations["get_run_api_recommendations__run_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/recommendations/{run_id}/outfits/{outfit_id}/swap": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Swap */
+        post: operations["swap_api_recommendations__run_id__outfits__outfit_id__swap_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/recommendations/{run_id}/outfits/{outfit_id}/wear": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Wear */
+        post: operations["wear_api_recommendations__run_id__outfits__outfit_id__wear_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/recommendations/{run_id}/outfits/{outfit_id}/feedback": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Feedback */
+        put: operations["feedback_api_recommendations__run_id__outfits__outfit_id__feedback_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/weather/locations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Locations */
+        get: operations["locations_api_weather_locations_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/health": {
         parameters: {
             query?: never;
@@ -316,6 +453,48 @@ export interface components {
              */
             season: "all" | "spring" | "summer" | "autumn" | "winter";
             /**
+             * Warmth
+             * @default unknown
+             * @enum {string}
+             */
+            warmth: "unknown" | "light" | "medium" | "warm";
+            /**
+             * Layer
+             * @default unknown
+             * @enum {string}
+             */
+            layer: "unknown" | "base" | "mid" | "outer";
+            /**
+             * Sleeve Length
+             * @default unknown
+             * @enum {string}
+             */
+            sleeve_length: "unknown" | "sleeveless" | "short" | "long";
+            /**
+             * Bottom Length
+             * @default unknown
+             * @enum {string}
+             */
+            bottom_length: "unknown" | "short" | "long";
+            /**
+             * Style
+             * @default unknown
+             * @enum {string}
+             */
+            style: "unknown" | "casual" | "smart" | "sport";
+            /**
+             * Rain Protection
+             * @default unknown
+             * @enum {string}
+             */
+            rain_protection: "unknown" | "yes" | "no";
+            /**
+             * Wind Protection
+             * @default unknown
+             * @enum {string}
+             */
+            wind_protection: "unknown" | "yes" | "no";
+            /**
              * Material
              * @default
              */
@@ -352,6 +531,48 @@ export interface components {
              * @enum {string}
              */
             season: "all" | "spring" | "summer" | "autumn" | "winter";
+            /**
+             * Warmth
+             * @default unknown
+             * @enum {string}
+             */
+            warmth: "unknown" | "light" | "medium" | "warm";
+            /**
+             * Layer
+             * @default unknown
+             * @enum {string}
+             */
+            layer: "unknown" | "base" | "mid" | "outer";
+            /**
+             * Sleeve Length
+             * @default unknown
+             * @enum {string}
+             */
+            sleeve_length: "unknown" | "sleeveless" | "short" | "long";
+            /**
+             * Bottom Length
+             * @default unknown
+             * @enum {string}
+             */
+            bottom_length: "unknown" | "short" | "long";
+            /**
+             * Style
+             * @default unknown
+             * @enum {string}
+             */
+            style: "unknown" | "casual" | "smart" | "sport";
+            /**
+             * Rain Protection
+             * @default unknown
+             * @enum {string}
+             */
+            rain_protection: "unknown" | "yes" | "no";
+            /**
+             * Wind Protection
+             * @default unknown
+             * @enum {string}
+             */
+            wind_protection: "unknown" | "yes" | "no";
             /**
              * Material
              * @default
@@ -427,6 +648,48 @@ export interface components {
              */
             season: "all" | "spring" | "summer" | "autumn" | "winter";
             /**
+             * Warmth
+             * @default unknown
+             * @enum {string}
+             */
+            warmth: "unknown" | "light" | "medium" | "warm";
+            /**
+             * Layer
+             * @default unknown
+             * @enum {string}
+             */
+            layer: "unknown" | "base" | "mid" | "outer";
+            /**
+             * Sleeve Length
+             * @default unknown
+             * @enum {string}
+             */
+            sleeve_length: "unknown" | "sleeveless" | "short" | "long";
+            /**
+             * Bottom Length
+             * @default unknown
+             * @enum {string}
+             */
+            bottom_length: "unknown" | "short" | "long";
+            /**
+             * Style
+             * @default unknown
+             * @enum {string}
+             */
+            style: "unknown" | "casual" | "smart" | "sport";
+            /**
+             * Rain Protection
+             * @default unknown
+             * @enum {string}
+             */
+            rain_protection: "unknown" | "yes" | "no";
+            /**
+             * Wind Protection
+             * @default unknown
+             * @enum {string}
+             */
+            wind_protection: "unknown" | "yes" | "no";
+            /**
              * Material
              * @default
              */
@@ -491,6 +754,17 @@ export interface components {
              */
             created_at: string;
         };
+        /** Location */
+        Location: {
+            /** Label */
+            label: string;
+            /** Latitude */
+            latitude: number;
+            /** Longitude */
+            longitude: number;
+            /** Timezone */
+            timezone: string;
+        };
         /** LoginInput */
         LoginInput: {
             /** Username */
@@ -498,11 +772,146 @@ export interface components {
             /** Password */
             password: string;
         };
+        /** ManualWeather */
+        ManualWeather: {
+            /** Feels Min */
+            feels_min: number;
+            /** Feels Max */
+            feels_max: number;
+            /**
+             * Rain Probability
+             * @default 0
+             */
+            rain_probability: number;
+            /**
+             * Wind Kph
+             * @default 0
+             */
+            wind_kph: number;
+        };
+        /** OutfitFeedback */
+        OutfitFeedback: {
+            /** Comfort */
+            comfort?: ("cold" | "comfortable" | "hot") | null;
+            /** Liked */
+            liked?: boolean | null;
+        };
+        /** OutfitOut */
+        OutfitOut: {
+            /** Id */
+            id: string;
+            /** Items */
+            items: components["schemas"]["GarmentOut"][];
+            /** Score */
+            score: number;
+            /** Reasons */
+            reasons: string[];
+            /** Warnings */
+            warnings: string[];
+            /** Complete */
+            complete: boolean;
+            /** Worn At */
+            worn_at: string | null;
+            feedback: components["schemas"]["OutfitFeedback"] | null;
+            /** Stale */
+            stale: boolean;
+        };
+        /** RecommendationInput */
+        RecommendationInput: {
+            weather: components["schemas"]["WeatherInput"];
+            /**
+             * Occasion
+             * @default casual
+             * @enum {string}
+             */
+            occasion: "casual" | "work" | "sport";
+            /**
+             * Exposure
+             * @default commute
+             * @enum {string}
+             */
+            exposure: "commute" | "outdoor" | "indoor";
+            /**
+             * Thermal Preference
+             * @default neutral
+             * @enum {string}
+             */
+            thermal_preference: "cold" | "neutral" | "warm";
+        };
+        /** RecommendationPreferences */
+        RecommendationPreferences: {
+            location?: components["schemas"]["Location"] | null;
+            /**
+             * Start Hour
+             * @default 8
+             */
+            start_hour: number;
+            /**
+             * End Hour
+             * @default 20
+             */
+            end_hour: number;
+            /**
+             * Occasion
+             * @default casual
+             * @enum {string}
+             */
+            occasion: "casual" | "work" | "sport";
+            /**
+             * Exposure
+             * @default commute
+             * @enum {string}
+             */
+            exposure: "commute" | "outdoor" | "indoor";
+            /**
+             * Thermal Preference
+             * @default neutral
+             * @enum {string}
+             */
+            thermal_preference: "cold" | "neutral" | "warm";
+        };
+        /** RecommendationRunOut */
+        RecommendationRunOut: {
+            /** Id */
+            id: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            weather: components["schemas"]["WeatherSummary"];
+            /**
+             * Occasion
+             * @enum {string}
+             */
+            occasion: "casual" | "work" | "sport";
+            /**
+             * Exposure
+             * @enum {string}
+             */
+            exposure: "commute" | "outdoor" | "indoor";
+            /**
+             * Thermal Preference
+             * @enum {string}
+             */
+            thermal_preference: "cold" | "neutral" | "warm";
+            /** Outfits */
+            outfits: components["schemas"]["OutfitOut"][];
+            /** Warnings */
+            warnings: string[];
+            /** Learning Note */
+            learning_note: string;
+        };
         /** SessionOut */
         SessionOut: {
             user: components["schemas"]["UserOut"];
             /** Csrf Token */
             csrf_token: string;
+        };
+        /** SwapInput */
+        SwapInput: {
+            /** Garment Id */
+            garment_id: string;
         };
         /** UserOut */
         UserOut: {
@@ -531,6 +940,59 @@ export interface components {
             /** Expected Version */
             expected_version: number;
         };
+        /** WeatherInput */
+        WeatherInput: {
+            location?: components["schemas"]["Location"] | null;
+            /**
+             * Date
+             * Format: date
+             */
+            date: string;
+            /**
+             * Start Hour
+             * @default 8
+             */
+            start_hour: number;
+            /**
+             * End Hour
+             * @default 20
+             */
+            end_hour: number;
+            manual?: components["schemas"]["ManualWeather"] | null;
+        };
+        /** WeatherSummary */
+        WeatherSummary: {
+            /**
+             * Source
+             * @enum {string}
+             */
+            source: "live" | "cache" | "stale" | "manual";
+            /** Location Name */
+            location_name: string;
+            /** Timezone */
+            timezone: string;
+            /**
+             * Date
+             * Format: date
+             */
+            date: string;
+            /** Start Hour */
+            start_hour: number;
+            /** End Hour */
+            end_hour: number;
+            /** Feels Min */
+            feels_min: number;
+            /** Feels Max */
+            feels_max: number;
+            /** Rain Probability */
+            rain_probability: number;
+            /** Wind Kph */
+            wind_kph: number;
+            /** Fetched At */
+            fetched_at: string | null;
+            /** Warnings */
+            warnings?: string[];
+        };
     };
     responses: never;
     parameters: never;
@@ -540,6 +1002,278 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    get_preferences_api_recommendations_preferences_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RecommendationPreferences"];
+                };
+            };
+        };
+    };
+    put_preferences_api_recommendations_preferences_put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RecommendationPreferences"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RecommendationPreferences"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    recommend_api_recommendations_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RecommendationInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RecommendationRunOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    latest_api_recommendations_latest_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RecommendationRunOut"] | null;
+                };
+            };
+        };
+    };
+    get_run_api_recommendations__run_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RecommendationRunOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    swap_api_recommendations__run_id__outfits__outfit_id__swap_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+                outfit_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SwapInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RecommendationRunOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    wear_api_recommendations__run_id__outfits__outfit_id__wear_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+                outfit_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RecommendationRunOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    feedback_api_recommendations__run_id__outfits__outfit_id__feedback_put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+                outfit_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OutfitFeedback"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RecommendationRunOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    locations_api_weather_locations_get: {
+        parameters: {
+            query: {
+                q: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Location"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     health_api_health_get: {
         parameters: {
             query?: never;

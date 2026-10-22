@@ -7,6 +7,16 @@ Category = Literal["top", "bottom", "outerwear", "dress", "shoes", "accessory"]
 Status = Literal["available", "laundry", "archived"]
 Season = Literal["all", "spring", "summer", "autumn", "winter"]
 CutoutModel = Literal["birefnet-general-lite"]
+Warmth = Literal["unknown", "light", "medium", "warm"]
+Layer = Literal["unknown", "base", "mid", "outer"]
+SleeveLength = Literal["unknown", "sleeveless", "short", "long"]
+BottomLength = Literal["unknown", "short", "long"]
+Style = Literal["unknown", "casual", "smart", "sport"]
+Protection = Literal["unknown", "yes", "no"]
+GARMENT_TAG_FIELDS = (
+    "warmth", "layer", "sleeve_length", "bottom_length", "style",
+    "rain_protection", "wind_protection",
+)
 
 
 class LoginInput(BaseModel):
@@ -31,6 +41,13 @@ class GarmentInput(BaseModel):
     category: Category = "top"
     color: str = Field(default="未填写", max_length=40)
     season: Season = "all"
+    warmth: Warmth = "unknown"
+    layer: Layer = "unknown"
+    sleeve_length: SleeveLength = "unknown"
+    bottom_length: BottomLength = "unknown"
+    style: Style = "unknown"
+    rain_protection: Protection = "unknown"
+    wind_protection: Protection = "unknown"
     material: str = Field(default="", max_length=120)
     care: str = Field(default="", max_length=500)
     notes: str = Field(default="", max_length=1000)
