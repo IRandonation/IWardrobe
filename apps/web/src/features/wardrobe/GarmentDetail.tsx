@@ -14,15 +14,19 @@ import {
   statuses,
   updatePayload,
   type Garment,
+  type Job,
 } from "../../lib/api";
 import { ErrorBox } from "../../components/ui";
+import { CutoutPanel } from "./CutoutPanel";
 
 export function GarmentDetail({
   item,
+  jobs,
   onChanged,
   onClose,
 }: {
   item: Garment;
+  jobs: Job[];
   onChanged: (message: string) => void;
   onClose: () => void;
 }) {
@@ -66,13 +70,17 @@ export function GarmentDetail({
   return (
     <div className="detail-layout">
       <div className="detail-visual">
-        <div className={`detail-photo ${item.category}`}>
-          {item.image_url ? (
-            <img src={item.image_url} alt={item.name} />
-          ) : (
-            <Shirt size={90} strokeWidth={1} />
-          )}
-        </div>
+        {item.asset_id ? (
+          <CutoutPanel item={item} jobs={jobs} onChanged={onChanged} />
+        ) : (
+          <div className={`detail-photo ${item.category}`}>
+            {item.image_url ? (
+              <img src={item.image_url} alt={item.name} />
+            ) : (
+              <Shirt size={90} strokeWidth={1} />
+            )}
+          </div>
+        )}
         <div className="detail-caption">
           <span className={`status status-${item.status}`}>
             <i />

@@ -6,6 +6,7 @@ from pydantic import BaseModel, ConfigDict, Field
 Category = Literal["top", "bottom", "outerwear", "dress", "shoes", "accessory"]
 Status = Literal["available", "laundry", "archived"]
 Season = Literal["all", "spring", "summer", "autumn", "winter"]
+CutoutModel = Literal["birefnet-general-lite"]
 
 
 class LoginInput(BaseModel):
@@ -45,6 +46,23 @@ class VersionInput(BaseModel):
     expected_version: int = Field(ge=1)
 
 
+class CutoutInput(BaseModel):
+    model: CutoutModel
+
+
+class DisplayInput(BaseModel):
+    model: CutoutModel | None
+
+
+class CutoutOut(BaseModel):
+    model: CutoutModel
+    job_id: str
+    image_url: str
+    duration_ms: int | None
+    model_version: str | None
+    created_at: datetime
+
+
 class GarmentOut(GarmentInput):
     id: str
     status: Status
@@ -54,6 +72,9 @@ class GarmentOut(GarmentInput):
     is_demo: bool
     asset_id: str | None
     image_url: str | None
+    original_image_url: str | None
+    display_model: CutoutModel | None
+    cutouts: list[CutoutOut]
     image_ready: bool
     created_at: datetime
     updated_at: datetime
@@ -64,6 +85,9 @@ class JobOut(BaseModel):
     id: str
     asset_id: str
     kind: str
+    # Retired model names remain readable in historical task records.
+    model: str | None
+    duration_ms: int | None
     status: str
     attempts: int
     error: str | None

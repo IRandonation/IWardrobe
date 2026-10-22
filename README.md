@@ -2,7 +2,7 @@
 
 在本机运行的私人衣橱。每个用户独立，电脑和手机尺寸共用一套响应式网页。
 
-当前交付是 **M0 基础工程 + M1 人工衣橱的可用子集**。已实现真实 PostgreSQL 持久化、登录与会话、私有照片、后台缩略图、衣物编辑、收藏、洗衣/收纳状态及穿着次数。没有家庭、成员切换或共享衣橱。
+当前交付是 **M0 基础工程 + M1 人工衣橱与 BiRefNet Lite 抠图**。已实现真实 PostgreSQL 持久化、登录与会话、私有照片、后台缩略图与 CPU 抠图、衣物编辑、收藏、洗衣/收纳状态及穿着次数。每个账号独立使用。
 
 ## 现在可以做什么
 
@@ -10,10 +10,12 @@
 - 单张或批量上传 JPEG / PNG / WebP；每张最多 20 MB、2000 万像素，每张生成一件衣物。
 - 手动建档，编辑类别、颜色、季节、材质、护理和备注。
 - 搜索、分类、排序、收藏；记录穿过一次、放入洗衣篮、洗净、收纳和恢复。
-- 查看后台任务和失败原因，重试失败缩略图；中断任务可恢复。
+- 上传时默认使用 BiRefNet Lite 自动抠图，也可暂不抠图；详情中可手动处理或重新处理。
+- 对照原图与最近一次成功的抠图结果，查看耗时、选为展示图或恢复原图。
+- 查看后台任务和失败原因，重试失败的缩略图或抠图任务；中断任务可恢复。
 - 导入 4 件生成的演示衣物。同一账号重复导入不会产生重复记录。
 
-**尚未实现**：真实照片抠图/正面重建、HEIC、AI 材质/洗标识别、天气与穿搭推荐、PWA、NAS 部署。演示图片本身由生图工具生成且已带透明背景，不代表应用已具备自动抠图能力。材质与护理字段是人工编写的测试数据。
+**尚未实现**：穿着照片中只提取衣服的专用分割、生成式正面重建、HEIC、AI 材质/洗标识别、天气与穿搭推荐、PWA、NAS 部署。现有抠图模型适合单件平铺或悬挂照片，穿着照可能保留人体。演示图片由生图工具生成且已带透明背景；材质与护理字段是人工编写的测试数据。
 
 ## 已配置的本机使用方法
 
@@ -47,7 +49,8 @@ wsl -d Ubuntu-22.04 -- bash /mnt/d/Project/IWardrobe/scripts/stop-wsl-deps.sh
 | FastAPI / arq worker | Windows，项目内 Python 3.12 虚拟环境 |
 | PostgreSQL 16 | WSL 内专用用户目录，端口 5433 |
 | Redis 6.0.16 | WSL 内专用用户目录，端口 6380，已实测 arq 工作流 |
-| 原图 / 缩略图 | 项目 `.local/data/`，只通过鉴权 API 读取 |
+| 原图 / 缩略图 / 抠图 | 项目 `.local/data/`，只通过鉴权 API 读取 |
+| CPU 抠图模型 | Windows worker 子进程；权重缓存 `.local/models/` |
 
 WSL 只用于当前电脑的两个开发依赖。应用使用标准数据库和 Redis 地址，不依赖 WSL API。方案和 Compose 默认 Redis 7；当前 WSL 使用 Ubuntu 提供的 Redis 6.0.16 作本机验证，Redis 7 的 Compose 路径尚未在这台电脑验证。
 
@@ -99,6 +102,18 @@ backend/.venv/Scripts/python.exe -m iwardrobe.cli create-user yourname --name "�
 
 当前启动配置仅监听本机，开发 HTTP 的 Cookie 未设置 Secure。真实手机拍摄和外部网络访问未验证；需要时再配置受信任 HTTPS、Origin 和 Secure Cookie。数据库演示密码仅适用于这里的回环开发配置。
 
+## BiRefNet Lite 抠图
+
+1. 添加照片时默认勾选“自动抠图”；上传完成后即可浏览，BiRefNet Lite 在后台排队处理，也可取消勾选暂不抠图。
+2. 打开单品详情，可点击“后台抠图”或“重新抠图”，失败后可重试。
+3. 在“原图 / 抠图结果”之间切换预览；点击“设为展示图”，或回到原图并点击“恢复原图”。选择的是最近成功的结果，之后重新抠图成功会更新其展示图；失败会保留上一次成功结果。
+
+首次使用自动从 rembg 的 GitHub release 下载 BiRefNet Lite 权重，约 224 MB；下载后可离线推理，照片不上传第三方。固定 `rembg[cpu]==2.0.86`，具体依赖见 `backend/uv.lock`。初次下载失败时任务会保留原图并允许重试。升级已有安装需要先执行 `uv sync --project backend --locked` 和 Alembic 迁移，再重启服务。
+
+每次任务启动独立 CPU 子进程，默认两条 ONNX 线程，600 秒内未完成会终止进程。输出为 1024×1024 透明 PNG，进行方向校正、裁边及等比例居中，不补画缺失衣物。界面耗时包含库/模型加载及处理，首次还包含下载；排队时间不计入。
+
+`.env` 可用 `MODEL_CACHE_DIR` 指定缓存目录、`CUTOUT_THREADS` 调整线程数。权重和照片均不提交 Git。界面保留最近一次成功结果，历史成功文件暂不自动清理，以保持已有图片链接有效。之前试用的 U²-Netp 已停用，历史任务和文件仍保留，但不能新建、重试或选为展示图；之前选择的 U²-Netp 展示图回到原图预览。参阅 [抠图实现与验证](docs/validation/cutout-local.md)。
+
 ## 项目结构
 
 ```text
@@ -116,6 +131,7 @@ backend/src/iwardrobe/
   identity.py             密码、会话、CSRF、Origin、登录限流
   wardrobe.py             建档、更新、穿着、演示导入
   media.py                图片校验、私有存储、缩略图
+  image_processing.py     BiRefNet Lite CPU 抠图、透明图、可终止推理子进程
   jobs.py / worker.py      持久任务、派发、租约、重试
   models.py / schemas.py   数据库与 API 模型
   cli.py                  创建账号、导入演示数据
@@ -151,4 +167,4 @@ backend/.venv/Scripts/python.exe scripts/export-openapi.py
 pnpm exec openapi-typescript apps/web/openapi.json -o apps/web/src/lib/generated.ts
 ```
 
-下一阶段接入真实图像处理与识别审核，再实现天气与穿搭推荐。参阅 [完整技术方案](docs/architecture/technical-design.md) 和 [本机验收记录](docs/validation/m0-local.md)。NAS 仍在本机功能闭环后单独实施。
+下一阶段收集真实照片的 BiRefNet Lite 使用反馈，再接入识别审核、天气与穿搭推荐。参阅 [完整技术方案](docs/architecture/technical-design.md) 和 [基础工程验收记录](docs/validation/m0-local.md)。NAS 仍在本机功能闭环后单独实施。

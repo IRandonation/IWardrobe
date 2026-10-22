@@ -360,6 +360,22 @@
               "default": false,
               "title": "Original"
             }
+          },
+          {
+            "name": "cutout",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cutout"
+            }
           }
         ],
         "responses": {
@@ -368,6 +384,104 @@
             "content": {
               "application/json": {
                 "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/assets/{asset_id}/cutouts": {
+      "post": {
+        "summary": "Request Cutout",
+        "operationId": "request_cutout_api_assets__asset_id__cutouts_post",
+        "parameters": [
+          {
+            "name": "asset_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Asset Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CutoutInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/assets/{asset_id}/display": {
+      "put": {
+        "summary": "Choose Display",
+        "operationId": "choose_display_api_assets__asset_id__display_put",
+        "parameters": [
+          {
+            "name": "asset_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Asset Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DisplayInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GarmentOut"
+                }
               }
             }
           },
@@ -459,6 +573,18 @@
             "type": "string",
             "title": "Name",
             "default": "新衣物"
+          },
+          "cutout_model": {
+            "anyOf": [
+              {
+                "type": "string",
+                "const": "birefnet-general-lite"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cutout Model"
           }
         },
         "type": "object",
@@ -466,6 +592,95 @@
           "file"
         ],
         "title": "Body_upload_garment_api_garments_upload_post"
+      },
+      "CutoutInput": {
+        "properties": {
+          "model": {
+            "type": "string",
+            "const": "birefnet-general-lite",
+            "title": "Model"
+          }
+        },
+        "type": "object",
+        "required": [
+          "model"
+        ],
+        "title": "CutoutInput"
+      },
+      "CutoutOut": {
+        "properties": {
+          "model": {
+            "type": "string",
+            "const": "birefnet-general-lite",
+            "title": "Model"
+          },
+          "job_id": {
+            "type": "string",
+            "title": "Job Id"
+          },
+          "image_url": {
+            "type": "string",
+            "title": "Image Url"
+          },
+          "duration_ms": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration Ms"
+          },
+          "model_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model Version"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "model",
+          "job_id",
+          "image_url",
+          "duration_ms",
+          "model_version",
+          "created_at"
+        ],
+        "title": "CutoutOut"
+      },
+      "DisplayInput": {
+        "properties": {
+          "model": {
+            "anyOf": [
+              {
+                "type": "string",
+                "const": "birefnet-general-lite"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          }
+        },
+        "type": "object",
+        "required": [
+          "model"
+        ],
+        "title": "DisplayInput"
       },
       "GarmentInput": {
         "properties": {
@@ -639,6 +854,36 @@
             ],
             "title": "Image Url"
           },
+          "original_image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Image Url"
+          },
+          "display_model": {
+            "anyOf": [
+              {
+                "type": "string",
+                "const": "birefnet-general-lite"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Model"
+          },
+          "cutouts": {
+            "items": {
+              "$ref": "#/components/schemas/CutoutOut"
+            },
+            "type": "array",
+            "title": "Cutouts"
+          },
           "image_ready": {
             "type": "boolean",
             "title": "Image Ready"
@@ -665,6 +910,9 @@
           "is_demo",
           "asset_id",
           "image_url",
+          "original_image_url",
+          "display_model",
+          "cutouts",
           "image_ready",
           "created_at",
           "updated_at"
@@ -801,6 +1049,28 @@
             "type": "string",
             "title": "Kind"
           },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "duration_ms": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration Ms"
+          },
           "status": {
             "type": "string",
             "title": "Status"
@@ -831,6 +1101,8 @@
           "id",
           "asset_id",
           "kind",
+          "model",
+          "duration_ms",
           "status",
           "attempts",
           "error",

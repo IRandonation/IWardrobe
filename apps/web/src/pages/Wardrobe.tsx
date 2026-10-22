@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   ArrowDownToLine,
@@ -58,6 +58,7 @@ export function Wardrobe({ session }: { session: Session }) {
   const [error, setError] = useState("");
   const [seeding, setSeeding] = useState(false);
   const [menu, setMenu] = useState(false);
+  const previousJobStatuses = useRef(new Map<string, string>());
   const garments = useQuery({
     queryKey: ["garments"],
     queryFn: () => api<Garment[]>("/garments"),
@@ -73,6 +74,17 @@ export function Wardrobe({ session }: { session: Session }) {
     queryFn: () => api<{ queue: string; database: string }>("/health"),
     refetchInterval: 15000,
   });
+  useEffect(() => {
+    const completed = jobs.data?.some(
+      (job) =>
+        job.status === "succeeded" &&
+        previousJobStatuses.current.get(job.id) !== "succeeded",
+    );
+    if (completed) void client.invalidateQueries({ queryKey: ["garments"] });
+    previousJobStatuses.current = new Map(
+      jobs.data?.map((job) => [job.id, job.status]),
+    );
+  }, [jobs.data, client]);
   const items = garments.data ?? [];
   const pending =
     jobs.data?.filter((job) => ["running", "queued"].includes(job.status))
@@ -497,8 +509,9 @@ export function Wardrobe({ session }: { session: Session }) {
       {active && (
         <Dialog title="单品详情" onClose={() => setSelected(null)} wide>
           <GarmentDetail
-            key={`${active.id}:${active.version}`}
+            key={active.id}
             item={active}
+            jobs={jobs.data ?? []}
             onChanged={(message) => {
               refresh();
               setToast(message);

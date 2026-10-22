@@ -947,6 +947,18 @@ main {
 .add-form > .form-grid {
   margin-bottom: 25px;
 }
+.add-form > .upload-options {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  margin-bottom: 0;
+  font-size: 12px;
+  color: #647653;
+}
+.upload-options input {
+  accent-color: #657d51;
+}
 .form-footer {
   display: flex;
   justify-content: flex-end;
@@ -1008,6 +1020,94 @@ main {
 .detail-form .error {
   margin-top: 16px;
 }
+.cutout-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  padding: 4px;
+  margin-bottom: 9px;
+  border-radius: 8px;
+  background: #edf1e6;
+}
+.cutout-tabs button {
+  padding: 9px 4px;
+  font-size: 10px;
+  line-height: 1.5;
+  border-radius: 5px;
+  color: #647653;
+}
+.cutout-tabs .selected {
+  background: #fff;
+  box-shadow: 0 1px 3px #2937200d;
+}
+.cutout-tabs button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.cutout-preview.transparent {
+  background-color: #fff;
+  background-image: conic-gradient(
+    #edf0e9 25%,
+    transparent 0 50%,
+    #edf0e9 0 75%,
+    transparent 0
+  );
+  background-size: 20px 20px;
+}
+.cutout-result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 44px;
+  font-size: 10px;
+  color: #859473;
+}
+.cutout-current {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  color: #5f774b;
+}
+.cutout-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.cutout-model-name {
+  font-size: 11px;
+  color: #647653;
+}
+.cutout-controls .button {
+  padding: 11px;
+  min-height: 42px;
+  font-size: 11px;
+}
+.cutout-status {
+  display: grid;
+  gap: 5px;
+  margin-top: 10px;
+  font-size: 10px;
+  line-height: 1.7;
+  color: #859473;
+}
+.cutout-status small {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: 10px;
+}
+.cutout-status .failed {
+  color: #a76b43;
+}
+.cutout-panel > .form-note {
+  margin: 10px 0 0;
+}
+.cutout-panel > .error {
+  margin-top: 10px;
+  overflow-wrap: anywhere;
+}
 .jobs-panel {
   padding: 24px;
   background: #fff;
@@ -1031,6 +1131,17 @@ main {
 }
 .jobs-panel > .muted {
   margin-bottom: 20px;
+}
+.jobs-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  font-size: 11px;
+  color: #859473;
+}
+.jobs-filter input {
+  accent-color: #657d51;
 }
 .job-row {
   display: flex;

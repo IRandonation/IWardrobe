@@ -4,845 +4,993 @@
  */
 
 export interface paths {
-  "/api/health": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/health": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Health */
+        get: operations["health_api_health_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /** Health */
-    get: operations["health_api_health_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/auth/login": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/auth/login": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Sign In */
+        post: operations["sign_in_api_auth_login_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /** Sign In */
-    post: operations["sign_in_api_auth_login_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/auth/me": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/auth/me": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Me */
+        get: operations["me_api_auth_me_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /** Me */
-    get: operations["me_api_auth_me_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/auth/logout": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/auth/logout": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Sign Out */
+        post: operations["sign_out_api_auth_logout_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /** Sign Out */
-    post: operations["sign_out_api_auth_logout_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/garments": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/garments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Garments */
+        get: operations["garments_api_garments_get"];
+        put?: never;
+        /** Add Garment */
+        post: operations["add_garment_api_garments_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /** Garments */
-    get: operations["garments_api_garments_get"];
-    put?: never;
-    /** Add Garment */
-    post: operations["add_garment_api_garments_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/garments/upload": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/garments/upload": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Upload Garment */
+        post: operations["upload_garment_api_garments_upload_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /** Upload Garment */
-    post: operations["upload_garment_api_garments_upload_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/demo/import": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/demo/import": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Seed Demo */
+        post: operations["seed_demo_api_demo_import_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /** Seed Demo */
-    post: operations["seed_demo_api_demo_import_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/garments/{garment_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/garments/{garment_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Detail */
+        get: operations["detail_api_garments__garment_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Update */
+        patch: operations["update_api_garments__garment_id__patch"];
+        trace?: never;
     };
-    /** Detail */
-    get: operations["detail_api_garments__garment_id__get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /** Update */
-    patch: operations["update_api_garments__garment_id__patch"];
-    trace?: never;
-  };
-  "/api/garments/{garment_id}/wear": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/garments/{garment_id}/wear": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Wear */
+        post: operations["wear_api_garments__garment_id__wear_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /** Wear */
-    post: operations["wear_api_garments__garment_id__wear_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/assets/{asset_id}/image": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/assets/{asset_id}/image": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Image File */
+        get: operations["image_file_api_assets__asset_id__image_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /** Image File */
-    get: operations["image_file_api_assets__asset_id__image_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/jobs": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/assets/{asset_id}/cutouts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Request Cutout */
+        post: operations["request_cutout_api_assets__asset_id__cutouts_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /** Jobs */
-    get: operations["jobs_api_jobs_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/jobs/{job_id}/retry": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/api/assets/{asset_id}/display": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Choose Display */
+        put: operations["choose_display_api_assets__asset_id__display_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /** Retry Job */
-    post: operations["retry_job_api_jobs__job_id__retry_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
+    "/api/jobs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Jobs */
+        get: operations["jobs_api_jobs_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/jobs/{job_id}/retry": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Retry Job */
+        post: operations["retry_job_api_jobs__job_id__retry_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
-  schemas: {
-    /** Body_upload_garment_api_garments_upload_post */
-    Body_upload_garment_api_garments_upload_post: {
-      /** File */
-      file: string;
-      /**
-       * Name
-       * @default 新衣物
-       */
-      name: string;
+    schemas: {
+        /** Body_upload_garment_api_garments_upload_post */
+        Body_upload_garment_api_garments_upload_post: {
+            /** File */
+            file: string;
+            /**
+             * Name
+             * @default 新衣物
+             */
+            name: string;
+            /** Cutout Model */
+            cutout_model?: "birefnet-general-lite" | null;
+        };
+        /** CutoutInput */
+        CutoutInput: {
+            /**
+             * Model
+             * @constant
+             */
+            model: "birefnet-general-lite";
+        };
+        /** CutoutOut */
+        CutoutOut: {
+            /**
+             * Model
+             * @constant
+             */
+            model: "birefnet-general-lite";
+            /** Job Id */
+            job_id: string;
+            /** Image Url */
+            image_url: string;
+            /** Duration Ms */
+            duration_ms: number | null;
+            /** Model Version */
+            model_version: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** DisplayInput */
+        DisplayInput: {
+            /** Model */
+            model: "birefnet-general-lite" | null;
+        };
+        /** GarmentInput */
+        GarmentInput: {
+            /** Name */
+            name: string;
+            /**
+             * Category
+             * @default top
+             * @enum {string}
+             */
+            category: "top" | "bottom" | "outerwear" | "dress" | "shoes" | "accessory";
+            /**
+             * Color
+             * @default 未填写
+             */
+            color: string;
+            /**
+             * Season
+             * @default all
+             * @enum {string}
+             */
+            season: "all" | "spring" | "summer" | "autumn" | "winter";
+            /**
+             * Material
+             * @default
+             */
+            material: string;
+            /**
+             * Care
+             * @default
+             */
+            care: string;
+            /**
+             * Notes
+             * @default
+             */
+            notes: string;
+        };
+        /** GarmentOut */
+        GarmentOut: {
+            /** Name */
+            name: string;
+            /**
+             * Category
+             * @default top
+             * @enum {string}
+             */
+            category: "top" | "bottom" | "outerwear" | "dress" | "shoes" | "accessory";
+            /**
+             * Color
+             * @default 未填写
+             */
+            color: string;
+            /**
+             * Season
+             * @default all
+             * @enum {string}
+             */
+            season: "all" | "spring" | "summer" | "autumn" | "winter";
+            /**
+             * Material
+             * @default
+             */
+            material: string;
+            /**
+             * Care
+             * @default
+             */
+            care: string;
+            /**
+             * Notes
+             * @default
+             */
+            notes: string;
+            /** Id */
+            id: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "available" | "laundry" | "archived";
+            /** Favorite */
+            favorite: boolean;
+            /** Version */
+            version: number;
+            /** Wear Count */
+            wear_count: number;
+            /** Is Demo */
+            is_demo: boolean;
+            /** Asset Id */
+            asset_id: string | null;
+            /** Image Url */
+            image_url: string | null;
+            /** Original Image Url */
+            original_image_url: string | null;
+            /** Display Model */
+            display_model: "birefnet-general-lite" | null;
+            /** Cutouts */
+            cutouts: components["schemas"]["CutoutOut"][];
+            /** Image Ready */
+            image_ready: boolean;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+        };
+        /** GarmentUpdate */
+        GarmentUpdate: {
+            /** Name */
+            name: string;
+            /**
+             * Category
+             * @default top
+             * @enum {string}
+             */
+            category: "top" | "bottom" | "outerwear" | "dress" | "shoes" | "accessory";
+            /**
+             * Color
+             * @default 未填写
+             */
+            color: string;
+            /**
+             * Season
+             * @default all
+             * @enum {string}
+             */
+            season: "all" | "spring" | "summer" | "autumn" | "winter";
+            /**
+             * Material
+             * @default
+             */
+            material: string;
+            /**
+             * Care
+             * @default
+             */
+            care: string;
+            /**
+             * Notes
+             * @default
+             */
+            notes: string;
+            /** Expected Version */
+            expected_version: number;
+            /**
+             * Status
+             * @default available
+             * @enum {string}
+             */
+            status: "available" | "laundry" | "archived";
+            /**
+             * Favorite
+             * @default false
+             */
+            favorite: boolean;
+        };
+        /** HTTPValidationError */
+        HTTPValidationError: {
+            /** Detail */
+            detail?: components["schemas"]["ValidationError"][];
+        };
+        /** ImportOut */
+        ImportOut: {
+            /** Imported */
+            imported: number;
+            /** Message */
+            message: string;
+        };
+        /** JobOut */
+        JobOut: {
+            /** Id */
+            id: string;
+            /** Asset Id */
+            asset_id: string;
+            /** Kind */
+            kind: string;
+            /** Model */
+            model: string | null;
+            /** Duration Ms */
+            duration_ms: number | null;
+            /** Status */
+            status: string;
+            /** Attempts */
+            attempts: number;
+            /** Error */
+            error: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** LoginInput */
+        LoginInput: {
+            /** Username */
+            username: string;
+            /** Password */
+            password: string;
+        };
+        /** SessionOut */
+        SessionOut: {
+            user: components["schemas"]["UserOut"];
+            /** Csrf Token */
+            csrf_token: string;
+        };
+        /** UserOut */
+        UserOut: {
+            /** Id */
+            id: string;
+            /** Username */
+            username: string;
+            /** Display Name */
+            display_name: string;
+        };
+        /** ValidationError */
+        ValidationError: {
+            /** Location */
+            loc: (string | number)[];
+            /** Message */
+            msg: string;
+            /** Error Type */
+            type: string;
+            /** Input */
+            input?: unknown;
+            /** Context */
+            ctx?: Record<string, never>;
+        };
+        /** VersionInput */
+        VersionInput: {
+            /** Expected Version */
+            expected_version: number;
+        };
     };
-    /** GarmentInput */
-    GarmentInput: {
-      /** Name */
-      name: string;
-      /**
-       * Category
-       * @default top
-       * @enum {string}
-       */
-      category:
-        "top" | "bottom" | "outerwear" | "dress" | "shoes" | "accessory";
-      /**
-       * Color
-       * @default 未填写
-       */
-      color: string;
-      /**
-       * Season
-       * @default all
-       * @enum {string}
-       */
-      season: "all" | "spring" | "summer" | "autumn" | "winter";
-      /**
-       * Material
-       * @default
-       */
-      material: string;
-      /**
-       * Care
-       * @default
-       */
-      care: string;
-      /**
-       * Notes
-       * @default
-       */
-      notes: string;
-    };
-    /** GarmentOut */
-    GarmentOut: {
-      /** Name */
-      name: string;
-      /**
-       * Category
-       * @default top
-       * @enum {string}
-       */
-      category:
-        "top" | "bottom" | "outerwear" | "dress" | "shoes" | "accessory";
-      /**
-       * Color
-       * @default 未填写
-       */
-      color: string;
-      /**
-       * Season
-       * @default all
-       * @enum {string}
-       */
-      season: "all" | "spring" | "summer" | "autumn" | "winter";
-      /**
-       * Material
-       * @default
-       */
-      material: string;
-      /**
-       * Care
-       * @default
-       */
-      care: string;
-      /**
-       * Notes
-       * @default
-       */
-      notes: string;
-      /** Id */
-      id: string;
-      /**
-       * Status
-       * @enum {string}
-       */
-      status: "available" | "laundry" | "archived";
-      /** Favorite */
-      favorite: boolean;
-      /** Version */
-      version: number;
-      /** Wear Count */
-      wear_count: number;
-      /** Is Demo */
-      is_demo: boolean;
-      /** Asset Id */
-      asset_id: string | null;
-      /** Image Url */
-      image_url: string | null;
-      /** Image Ready */
-      image_ready: boolean;
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-      /**
-       * Updated At
-       * Format: date-time
-       */
-      updated_at: string;
-    };
-    /** GarmentUpdate */
-    GarmentUpdate: {
-      /** Name */
-      name: string;
-      /**
-       * Category
-       * @default top
-       * @enum {string}
-       */
-      category:
-        "top" | "bottom" | "outerwear" | "dress" | "shoes" | "accessory";
-      /**
-       * Color
-       * @default 未填写
-       */
-      color: string;
-      /**
-       * Season
-       * @default all
-       * @enum {string}
-       */
-      season: "all" | "spring" | "summer" | "autumn" | "winter";
-      /**
-       * Material
-       * @default
-       */
-      material: string;
-      /**
-       * Care
-       * @default
-       */
-      care: string;
-      /**
-       * Notes
-       * @default
-       */
-      notes: string;
-      /** Expected Version */
-      expected_version: number;
-      /**
-       * Status
-       * @default available
-       * @enum {string}
-       */
-      status: "available" | "laundry" | "archived";
-      /**
-       * Favorite
-       * @default false
-       */
-      favorite: boolean;
-    };
-    /** HTTPValidationError */
-    HTTPValidationError: {
-      /** Detail */
-      detail?: components["schemas"]["ValidationError"][];
-    };
-    /** ImportOut */
-    ImportOut: {
-      /** Imported */
-      imported: number;
-      /** Message */
-      message: string;
-    };
-    /** JobOut */
-    JobOut: {
-      /** Id */
-      id: string;
-      /** Asset Id */
-      asset_id: string;
-      /** Kind */
-      kind: string;
-      /** Status */
-      status: string;
-      /** Attempts */
-      attempts: number;
-      /** Error */
-      error: string | null;
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-    };
-    /** LoginInput */
-    LoginInput: {
-      /** Username */
-      username: string;
-      /** Password */
-      password: string;
-    };
-    /** SessionOut */
-    SessionOut: {
-      user: components["schemas"]["UserOut"];
-      /** Csrf Token */
-      csrf_token: string;
-    };
-    /** UserOut */
-    UserOut: {
-      /** Id */
-      id: string;
-      /** Username */
-      username: string;
-      /** Display Name */
-      display_name: string;
-    };
-    /** ValidationError */
-    ValidationError: {
-      /** Location */
-      loc: (string | number)[];
-      /** Message */
-      msg: string;
-      /** Error Type */
-      type: string;
-      /** Input */
-      input?: unknown;
-      /** Context */
-      ctx?: Record<string, never>;
-    };
-    /** VersionInput */
-    VersionInput: {
-      /** Expected Version */
-      expected_version: number;
-    };
-  };
-  responses: never;
-  parameters: never;
-  requestBodies: never;
-  headers: never;
-  pathItems: never;
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
-  health_api_health_get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    health_api_health_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+        };
     };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
+    sign_in_api_auth_login_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-        content: {
-          "application/json": unknown;
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LoginInput"];
+            };
         };
-      };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SessionOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
     };
-  };
-  sign_in_api_auth_login_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    me_api_auth_me_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SessionOut"];
+                };
+            };
+        };
     };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["LoginInput"];
-      };
+    sign_out_api_auth_logout_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
     };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
+    garments_api_garments_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-        content: {
-          "application/json": components["schemas"]["SessionOut"];
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GarmentOut"][];
+                };
+            };
         };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
     };
-  };
-  me_api_auth_me_get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    add_garment_api_garments_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GarmentInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GarmentOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
     };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
+    upload_garment_api_garments_upload_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-        content: {
-          "application/json": components["schemas"]["SessionOut"];
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_upload_garment_api_garments_upload_post"];
+            };
         };
-      };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GarmentOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
     };
-  };
-  sign_out_api_auth_logout_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    seed_demo_api_demo_import_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ImportOut"];
+                };
+            };
+        };
     };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      204: {
-        headers: {
-          [name: string]: unknown;
+    detail_api_garments__garment_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                garment_id: string;
+            };
+            cookie?: never;
         };
-        content?: never;
-      };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GarmentOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
     };
-  };
-  garments_api_garments_get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    update_api_garments__garment_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                garment_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GarmentUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GarmentOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
     };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
+    wear_api_garments__garment_id__wear_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                garment_id: string;
+            };
+            cookie?: never;
         };
-        content: {
-          "application/json": components["schemas"]["GarmentOut"][];
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["VersionInput"];
+            };
         };
-      };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GarmentOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
     };
-  };
-  add_garment_api_garments_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    image_file_api_assets__asset_id__image_get: {
+        parameters: {
+            query?: {
+                original?: boolean;
+                cutout?: string | null;
+            };
+            header?: never;
+            path: {
+                asset_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
     };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["GarmentInput"];
-      };
+    request_cutout_api_assets__asset_id__cutouts_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                asset_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CutoutInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["JobOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
     };
-    responses: {
-      /** @description Successful Response */
-      201: {
-        headers: {
-          [name: string]: unknown;
+    choose_display_api_assets__asset_id__display_put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                asset_id: string;
+            };
+            cookie?: never;
         };
-        content: {
-          "application/json": components["schemas"]["GarmentOut"];
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DisplayInput"];
+            };
         };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GarmentOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
         };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
     };
-  };
-  upload_garment_api_garments_upload_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    jobs_api_jobs_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["JobOut"][];
+                };
+            };
+        };
     };
-    requestBody: {
-      content: {
-        "multipart/form-data": components["schemas"]["Body_upload_garment_api_garments_upload_post"];
-      };
+    retry_job_api_jobs__job_id__retry_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                job_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["JobOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
     };
-    responses: {
-      /** @description Successful Response */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["GarmentOut"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  seed_demo_api_demo_import_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["ImportOut"];
-        };
-      };
-    };
-  };
-  detail_api_garments__garment_id__get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        garment_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["GarmentOut"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  update_api_garments__garment_id__patch: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        garment_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["GarmentUpdate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["GarmentOut"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  wear_api_garments__garment_id__wear_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        garment_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["VersionInput"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["GarmentOut"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  image_file_api_assets__asset_id__image_get: {
-    parameters: {
-      query?: {
-        original?: boolean;
-      };
-      header?: never;
-      path: {
-        asset_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": unknown;
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  jobs_api_jobs_get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["JobOut"][];
-        };
-      };
-    };
-  };
-  retry_job_api_jobs__job_id__retry_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        job_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["JobOut"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
 }

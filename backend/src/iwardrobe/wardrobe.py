@@ -1,13 +1,14 @@
 import json
 
 from fastapi import HTTPException
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from .config import ROOT
+from .image_processing import MODELS
 from .media import inspect_image, write_original
 from .models import Asset, Garment, Job, User, WearRecord, now, uid
-from .schemas import GarmentInput, GarmentOut, GarmentUpdate
+from .schemas import CutoutModel, CutoutOut, GarmentInput, GarmentOut, GarmentUpdate
 
 
 def owned_garment(db: Session, user_id: str, garment_id: str, lock: bool = False) -> Garment:
@@ -18,7 +19,53 @@ def owned_garment(db: Session, user_id: str, garment_id: str, lock: bool = False
     return garment
 
 
-def output(garment: Garment, asset: Asset | None) -> GarmentOut:
+def latest_cutouts(db: Session, user_id: str, asset_ids: list[str]) -> dict[str, list[Job]]:
+    if not asset_ids:
+        return {}
+    ranked = (
+        select(
+            Job.id,
+            func.row_number()
+            .over(
+                partition_by=(Job.asset_id, Job.model),
+                order_by=(Job.updated_at.desc(), Job.id.desc()),
+            )
+            .label("position"),
+        )
+        .where(
+            Job.user_id == user_id,
+            Job.asset_id.in_(asset_ids),
+            Job.kind == "cutout",
+            Job.model.in_(MODELS),
+            Job.status == "succeeded",
+            Job.output_key.is_not(None),
+        )
+        .subquery()
+    )
+    jobs = db.scalars(
+        select(Job).join(ranked, Job.id == ranked.c.id).where(ranked.c.position == 1)
+    ).all()
+    results: dict[str, list[Job]] = {}
+    for job in jobs:
+        results.setdefault(job.asset_id, []).append(job)
+    return results
+
+
+def output(garment: Garment, asset: Asset | None, cutouts: list[Job] | None = None) -> GarmentOut:
+    results = [
+        CutoutOut(
+            model=job.model,
+            job_id=job.id,
+            image_url=f"/api/assets/{job.asset_id}/image?cutout={job.id}",
+            duration_ms=job.duration_ms,
+            model_version=job.model_version,
+            created_at=job.created_at,
+        )
+        for job in cutouts or []
+    ]
+    selected = next(
+        (result for result in results if asset and result.model == asset.display_model), None
+    )
     return GarmentOut(
         **{field: getattr(garment, field) for field in GarmentInput.model_fields},
         id=garment.id,
@@ -28,8 +75,15 @@ def output(garment: Garment, asset: Asset | None) -> GarmentOut:
         wear_count=garment.wear_count,
         is_demo=garment.demo_key is not None,
         asset_id=asset.id if asset else None,
-        image_url=f"/api/assets/{asset.id}/image" if asset else None,
-        image_ready=bool(asset and asset.thumbnail_key),
+        image_url=selected.image_url
+        if selected
+        else f"/api/assets/{asset.id}/image"
+        if asset
+        else None,
+        original_image_url=f"/api/assets/{asset.id}/image?original=true" if asset else None,
+        display_model=selected.model if selected else None,
+        cutouts=results,
+        image_ready=bool(selected or (asset and asset.thumbnail_key)),
         created_at=garment.created_at,
         updated_at=garment.updated_at,
     )
@@ -39,7 +93,8 @@ def garment_output(db: Session, garment: Garment) -> GarmentOut:
     asset = db.scalar(
         select(Asset).where(Asset.garment_id == garment.id, Asset.user_id == garment.user_id)
     )
-    return output(garment, asset)
+    cutouts = latest_cutouts(db, garment.user_id, [asset.id]).get(asset.id, []) if asset else []
+    return output(garment, asset, cutouts)
 
 
 def create_garment(
@@ -48,6 +103,7 @@ def create_garment(
     fields: GarmentInput,
     data: bytes | None = None,
     demo_key: str | None = None,
+    cutout_model: CutoutModel | None = None,
 ) -> Garment:
     garment = Garment(id=uid(), user_id=user.id, **fields.model_dump(), demo_key=demo_key)
     asset = None
@@ -75,6 +131,8 @@ def create_garment(
             db.add(asset)
             db.flush()
             db.add(job)
+            if cutout_model:
+                db.add(Job(user_id=user.id, asset_id=asset.id, kind="cutout", model=cutout_model))
         db.commit()
     except Exception:
         db.rollback()

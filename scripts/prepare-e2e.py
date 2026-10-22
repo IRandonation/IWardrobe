@@ -8,20 +8,27 @@ from iwardrobe.db import SessionLocal
 from iwardrobe.identity import hasher
 from iwardrobe.models import User
 
-accounts = {}
+account_groups = {}
 with SessionLocal() as db:
-    for device in ["desktop", "mobile"]:
-        username = f"e2e-{device}-{secrets.token_hex(4)}"
-        password = secrets.token_urlsafe(18)
-        db.add(
-            User(
-                username=username,
-                display_name=f"{device} 测试衣橱",
-                password_hash=hasher.hash(password),
+    for filename, prefix in [
+        ("e2e-accounts.json", "e2e"),
+        ("cutout-e2e-accounts.json", "e2e-cutout"),
+    ]:
+        accounts = {}
+        for device in ["desktop", "mobile"]:
+            username = f"{prefix}-{device}-{secrets.token_hex(4)}"
+            password = secrets.token_urlsafe(18)
+            db.add(
+                User(
+                    username=username,
+                    display_name=f"{device} 测试衣橱",
+                    password_hash=hasher.hash(password),
+                )
             )
-        )
-        accounts[device] = {"username": username, "password": password}
+            accounts[device] = {"username": username, "password": password}
+        account_groups[filename] = accounts
     db.commit()
-path = ROOT / ".local/e2e-accounts.json"
-path.write_text(json.dumps(accounts), encoding="utf-8")
-print("Created two isolated browser-test accounts. Credentials saved locally.")
+for filename, accounts in account_groups.items():
+    path = ROOT / ".local" / filename
+    path.write_text(json.dumps(accounts), encoding="utf-8")
+print("Created four isolated browser-test accounts. Credentials saved locally.")

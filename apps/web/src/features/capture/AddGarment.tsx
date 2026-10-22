@@ -1,11 +1,12 @@
 import { useState, type FormEvent } from "react";
 import { CloudUpload, Images, LoaderCircle, Plus } from "lucide-react";
-import { api, categories } from "../../lib/api";
+import { api, categories, cutoutModel } from "../../lib/api";
 import { ErrorBox } from "../../components/ui";
 
 export function AddGarment({ onDone }: { onDone: (message: string) => void }) {
   const [files, setFiles] = useState<File[]>([]);
   const [manual, setManual] = useState(false);
+  const [autoCutout, setAutoCutout] = useState(true);
   const [error, setError] = useState("");
   const [progress, setProgress] = useState("");
   const [pending, setPending] = useState(false);
@@ -46,6 +47,7 @@ export function AddGarment({ onDone }: { onDone: (message: string) => void }) {
           setProgress(`正在添加 ${index + 1} / ${files.length}`);
           const data = new FormData();
           data.set("file", file);
+          if (autoCutout) data.set("cutout_model", cutoutModel);
           data.set(
             "name",
             file.name.replace(/\.[^.]+$/, "").slice(0, 100) || "新衣物",
@@ -53,7 +55,9 @@ export function AddGarment({ onDone }: { onDone: (message: string) => void }) {
           await api("/garments/upload", { method: "POST", body: data });
           completed++;
         }
-        onDone(`已添加 ${files.length} 件衣物，缩略图将在后台处理`);
+        onDone(
+          `已添加 ${files.length} 件衣物，${autoCutout ? "抠图任务已排队，可在详情中对照并选用结果" : "缩略图将在后台处理"}`,
+        );
       }
     } catch (e) {
       setFiles(files.slice(completed));
@@ -141,8 +145,18 @@ export function AddGarment({ onDone }: { onDone: (message: string) => void }) {
               ))}
             </div>
           )}
+          <label className="upload-options">
+            <input
+              type="checkbox"
+              checked={autoCutout}
+              disabled={pending}
+              onChange={(e) => setAutoCutout(e.target.checked)}
+            />
+            自动抠图
+          </label>
           <p className="form-note">
-            本版保存原图并生成缩略图。自动抠图、材质与洗标识别将在后续接入。
+            原图会保留。适合单件平铺或悬挂照片，穿着照可能保留人体。
+            抠图在后台运行，完成后可在详情中对照、选用。取消勾选可暂不抠图。
           </p>
         </>
       )}

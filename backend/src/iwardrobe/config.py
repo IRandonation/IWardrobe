@@ -15,6 +15,8 @@ class Settings(BaseSettings):
     allowed_origins: str = "http://127.0.0.1:5173,http://localhost:5173"
     session_hours: int = 24
     max_upload_bytes: int = 20 * 1024 * 1024
+    model_cache_dir: Path = ROOT / ".local" / "models"
+    cutout_threads: int = 2
 
 
 @lru_cache

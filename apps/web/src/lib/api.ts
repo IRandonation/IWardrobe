@@ -5,6 +5,15 @@ export type GarmentStatus = Garment["status"];
 export type Season = Garment["season"];
 export type Session = components["schemas"]["SessionOut"];
 export type Job = components["schemas"]["JobOut"];
+export type CutoutModel = "birefnet-general-lite";
+export const cutoutModel: CutoutModel = "birefnet-general-lite";
+export const cutoutModelName = "BiRefNet Lite";
+
+export function formatDuration(milliseconds: number) {
+  return milliseconds < 1000
+    ? `${milliseconds} 毫秒`
+    : `${(milliseconds / 1000).toFixed(1)} 秒`;
+}
 
 let csrfToken = "";
 export function setCsrf(token: string) {
